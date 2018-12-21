@@ -4,8 +4,9 @@ namespace App\Services;
 
 use App\User;
 use App\JournalEntry;
-use App\Mail\JournalPromptMail;
+use App\Jobs\SendPromptJob;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Queue;
 
 class SendJournalPrompt
 {
@@ -19,9 +20,11 @@ class SendJournalPrompt
             ]);
 
             $user->journalEntries()->save($journalEntry);
+
+            SendPromptJob::dispatch($journalEntry);
             
-            Mail::to($user->email)
-            ->queue(new JournalPromptMail($journalEntry));
+            // Mail::to($user->email)
+            // ->queue(new JournalPromptMail($journalEntry));
         });
     }
 }

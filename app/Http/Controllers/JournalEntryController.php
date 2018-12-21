@@ -30,8 +30,16 @@ class JournalEntryController extends Controller
 
     public function updateWebhook(Request $request)
     {
-        info($request);
+        $fromEmail = $request->get('To');
+        $emailContent = $request->get('body-plain');
+        $emailHistoryId = $request['event-data']['user-variables']['history_id'];
 
-        return resposne('test', 200);
+        $user = User::where('email', $fromEmail);
+
+        $user->journalEntries->where('email_history_id', $emailHistoryId)->update([
+            'content' => $emailContent
+        ]);
+
+        return response('recieved', 200);
     }
 }

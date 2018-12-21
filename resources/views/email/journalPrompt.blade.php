@@ -6,6 +6,6 @@
 </head>
 
 <body>
-    <h1>{{$prompt}}</h1>
+    <h1>{{$history->prompt}}</h1>
 </body>
 </html>

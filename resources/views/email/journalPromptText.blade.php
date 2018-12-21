@@ -1,1 +1,1 @@
-{{$prompt}}
+{{$history->prompt}}

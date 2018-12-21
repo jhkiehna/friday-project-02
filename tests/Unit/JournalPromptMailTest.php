@@ -5,17 +5,17 @@ namespace Tests\Unit;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use App\JournalEntry;
-use App\Mail\JournalPromptMail;
+use App\Jobs\SendPromptJob;
 
-class JournalPromptMailTest extends TestCase
+class JournalPromptMailJobTest extends TestCase
 {
 
     public function testThisCreatesAMailable()
     {
         $journalEntry = factory(JournalEntry::class)->create();
-        $mail = new JournalPromptMail($journalEntry);
+        $job = new SendPromptJob($journalEntry);
 
-        $mail->build();
+        $job->handle();
 
         $this->assertDatabaseHas('email_histories', ['recipient_id' => $journalEntry->user_id]);
     }

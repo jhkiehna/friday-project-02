@@ -23,7 +23,7 @@ class JournalControllerTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $response = $this->get('/journal-entries/for-user/' . $user->id);
+        $response = $this->get('api/journal-entries/for-user/' . $user->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
@@ -38,7 +38,7 @@ class JournalControllerTest extends TestCase
     {
         $journalEntry = factory(JournalEntry::class)->create();
 
-        $response = $this->get('/journal-entries/'. $journalEntry->id);
+        $response = $this->get('api/journal-entries/'. $journalEntry->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment($journalEntry->toArray());
@@ -54,7 +54,7 @@ class JournalControllerTest extends TestCase
             'content' => 'Test Content'
         ];
 
-        $response = $this->patch('/journal-entries/'. $journalEntry->id, $webhookRequest);
+        $response = $this->patch('api/journal-entries/'. $journalEntry->id, $webhookRequest);
 
         $this->assertEquals($journalEntry->content, $webhookRequest['content']);
     }
