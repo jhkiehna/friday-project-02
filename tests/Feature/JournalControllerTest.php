@@ -27,8 +27,13 @@ class JournalControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
-            'user' => $user,
-            'journal_entires' => [$journalEntry1->id, $journalEntry2->id]
+            'id' => $user->id,
+        ]);
+        $response->assertJsonFragment([
+            'id' => $journalEntry1->id,
+        ]);
+        $response->assertJsonFragment([
+            'id' => $journalEntry2->id,
         ]);
     }
 
