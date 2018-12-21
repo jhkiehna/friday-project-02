@@ -12,12 +12,11 @@ class JournalPromptMailTest extends TestCase
 
     public function testThisCreatesAMailable()
     {
-        $user = factory(User::class)->create();
-        $journalEntry = factory(JournalEntry::class)->create([
-            'user_id' => $user->id
-        ]);
+        $journalEntry = factory(JournalEntry::class)->create();
+        $mail = new JournalPromptMail($journalEntry);
 
+        $mail->build();
 
-        $job->handle();
+        $this->assertDatabaseHas('email_histories', ['recipient_id' => $journalEntry->user_id]);
     }
 }
