@@ -30,6 +30,8 @@ class JournalEntryController extends Controller
 
     public function updateWebhook(Request $request)
     {
-        
+        info($request);
+
+        return resposne('test', 200);
     }
 }
