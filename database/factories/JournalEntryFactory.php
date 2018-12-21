@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,15 +17,13 @@ use Faker\Generator as Faker;
 $factory->define(App\JournalEntry::class, function (Faker $faker) {
     return [
         'user_id' => $faker->randomDigit,
-        'email_history' => $faker->unique()->randomDigit,
+        'email_history_id' => $faker->unique()->randomDigit,
         'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true)
     ];
 });
 
-$factory->define(App\JournalEntry::class, 'with_user' ,function (Faker $faker) {
+$factory->state(App\JournalEntry::class, 'withUser', function (Faker $faker) {
     return [
         'user_id' => factory(User::class)->create(),
-        'email_history' => $faker->unique()->randomDigit,
-        'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true)
     ];
 });

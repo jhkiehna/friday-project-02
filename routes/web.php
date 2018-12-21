@@ -19,5 +19,5 @@ Route::prefix('{userId}')->group(function() {
     Route::get('/', 'JournalController@index')->name('journal.index');
     
     Route::get('/{journalId}', 'JournalController@show')->name('journal.show');
-    Route::update('/{journalId}', 'JournalController@updateWebhook')->name('journal.update');
+    Route::patch('/{journalId}', 'JournalController@updateWebhook')->name('journal.update');
 });
