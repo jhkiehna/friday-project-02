@@ -15,9 +15,9 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('{userId}')->group(function() {
-    Route::get('/', 'JournalController@index')->name('journal.index');
+Route::prefix('journal-entries/{userId}')->group(function() {
+    Route::get('/', 'JournalEntryController@index')->name('journal.index');
     
-    Route::get('/{journalId}', 'JournalController@show')->name('journal.show');
-    Route::patch('/{journalId}', 'JournalController@updateWebhook')->name('journal.update');
+    Route::get('/{journalId}', 'JournalEntryController@show')->name('journal.show');
+    Route::patch('/{journalId}', 'JournalEntryController@updateWebhook')->name('journal.update');
 });

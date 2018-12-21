@@ -10,7 +10,7 @@ use App\JournalEntry;
 class JournalControllerTest extends TestCase
 {
     use RefreshDatabase;
-    
+
     /**
      * A basic test example.
      *
@@ -18,9 +18,12 @@ class JournalControllerTest extends TestCase
      */
     public function testIndexEndpointReturnsJournalEntriesForUser()
     {
-        list($journalEntry1, $journalEntry2) = factory(JournalEntry::class, 2)->states(['withUser'])->create();
+        $user = factory(User::class)->create();
+        list($journalEntry1, $journalEntry2) = factory(JournalEntry::class, 2)->create([
+            'user_id' => $user->id
+        ]);
 
-        $response = $this->get('/journal-entries/{userId}');
+        $response = $this->get('/journal-entries/' . $user->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment([

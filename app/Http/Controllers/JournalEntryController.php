@@ -8,7 +8,7 @@ class JournalEntryController extends Controller
 {
     public function index()
     {
-
+        return response('test', 200);
     }
 
     public function show()
