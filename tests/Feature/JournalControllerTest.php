@@ -45,9 +45,6 @@ class JournalControllerTest extends TestCase
         $response = $this->get('/journal-entries/'. $user->id .'/' . $journalEntry->id);
 
         $response->assertStatus(200);
-        $response->assertJsonFragment([
-            'journalEntry_id' => $journalEntry->id,
-            'journalEntryContent' => $journalEntry->content
-        ]);
+        $response->assertJsonFragment([$journalEntry->toArray()]);
     }
 }
