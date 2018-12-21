@@ -16,7 +16,7 @@ class CreateJournalEntriesTable extends Migration
         Schema::create('journal_entries', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id');
-            $table->integer('email_history_id');
+            $table->integer('email_history_id')->nullable();
             $table->text('content')->nullable();
             $table->timestamps();
         });
