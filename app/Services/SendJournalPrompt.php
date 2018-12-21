@@ -4,6 +4,7 @@ namespace App\Services;
 
 use App\User;
 use App\JournalEntry;
+use App\Jobs\JournalPromptEmailJob;
 
 class SendJournalPrompt
 {
@@ -17,6 +18,8 @@ class SendJournalPrompt
             ]);
 
             $user->journalEntries()->save($journalEntry);
+
+            JournalPromptEmailJob::dispatch($journalEntry);
         });
     }
 }
