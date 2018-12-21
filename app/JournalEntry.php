@@ -6,5 +6,5 @@ use Illuminate\Database\Eloquent\Model;
 
 class JournalEntry extends Model
 {
-    protected $fillable = ['content'];
+    protected $fillable = ['user_id, content'];
 }

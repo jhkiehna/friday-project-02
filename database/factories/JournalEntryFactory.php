@@ -21,9 +21,3 @@ $factory->define(App\JournalEntry::class, function (Faker $faker) {
         'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true)
     ];
 });
-
-$factory->state(App\JournalEntry::class, 'withUser', function (Faker $faker) {
-    return [
-        'user_id' => factory(User::class)->create(),
-    ];
-});

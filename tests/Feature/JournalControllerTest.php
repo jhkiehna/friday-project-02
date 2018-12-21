@@ -37,14 +37,16 @@ class JournalControllerTest extends TestCase
         ]);
     }
 
-    public function testShowEndpointReturnsASingleJournalEntry()
+    public function testShowEndpointReturnsASingleJournalEntryForAUser()
     {
         $user = factory(User::class)->create();
-        $journalEntry = factory(JournalEntry::class)->create();
+        $journalEntry = factory(JournalEntry::class)->create([
+            'user_id' => $user->id
+        ]);
 
-        $response = $this->get('/journal-entries/'. $user->id .'/' . $journalEntry->id);
+        $response = $this->get('/journal-entries/'. $journalEntry->user_id .'/' . $journalEntry->id);
 
         $response->assertStatus(200);
-        $response->assertJsonFragment([$journalEntry->toArray()]);
+        $response->assertJsonFragment($journalEntry->toArray());
     }
 }

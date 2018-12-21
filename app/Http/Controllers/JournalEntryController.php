@@ -23,9 +23,11 @@ class JournalEntryController extends Controller
         return response($response, 200);
     }
 
-    public function show()
+    public function show($userId, $journalId)
     {
-        return response('test', 200);
+        $journal = JournalEntry::findOrFail($journalId);
+
+        return response($journal->toArray(), 200);
     }
 
     public function updateWebhook()
