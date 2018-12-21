@@ -23,7 +23,7 @@ class JournalControllerTest extends TestCase
             'user_id' => $user->id
         ]);
 
-        $response = $this->get('/journal-entries/' . $user->id);
+        $response = $this->get('/journal-entries/for-user/' . $user->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
