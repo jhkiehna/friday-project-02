@@ -11,11 +11,9 @@ class JournalEntryController extends Controller
     public function index($userId)
     {
         $user = User::findOrFail($userId);
-        $journals = collect(JournalEntry::where('user_id', $user->id)->get());
 
         $response = [
-            'user' => $user->toArray(),
-            'journal_entries' => $journals->map(function($journal) {
+            'journal_entries' => $user->journalEntries->map(function($journal) {
                 return $journal->toArray();
             })->toArray()
         ];

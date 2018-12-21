@@ -27,9 +27,6 @@ class JournalControllerTest extends TestCase
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
-            'user' => $user->toArray()
-        ]);
-        $response->assertJsonFragment([
             $journalEntry1->toArray()
         ]);
         $response->assertJsonFragment([
