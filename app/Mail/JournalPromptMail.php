@@ -7,12 +7,14 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use App\JournalEntry;
+use App\EmailHistory;
 
 class JournalPromptMail extends Mailable
 {
     use Queueable, SerializesModels;
 
     private $journalEntry;
+    public $prompt;
 
     /**
      * Create a new message instance.
@@ -22,6 +24,8 @@ class JournalPromptMail extends Mailable
     public function __construct(JournalEntry $journalEntry)
     {
         $this->journalEntry = $journalEntry;
+        $prompts = collect(config('journal.prompts'));
+        $this->prompt = $prompts->random();
     }
 
     /**
@@ -31,6 +35,12 @@ class JournalPromptMail extends Mailable
      */
     public function build()
     {
-        return $this->view('view.name');
+        EmailHistory::create([
+            'recipient_id' => $this->journalEntry->user_id,
+            'prompt' => $this->prompt
+        ]);
+
+        return $this->view('email.journalPrompt')
+        ->text('email.journalPromptText');
     }
 }
