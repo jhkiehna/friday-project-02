@@ -42,7 +42,7 @@ class JournalControllerTest extends TestCase
         $user = factory(User::class)->create();
         $journalEntry = factory(JournalEntry::class)->create();
 
-        $response = $this->get('/journal-entries/{userId}/{journalEntryId}');
+        $response = $this->get('/journal-entries/'. $user->id .'/' . $journalEntry->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment([
