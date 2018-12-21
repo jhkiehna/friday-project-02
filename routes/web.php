@@ -14,3 +14,10 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::prefix('journal-entries')->group(function() {
+    Route::get('/for-user/{userId}', 'JournalEntryController@index')->name('journal.index');
+    
+    Route::get('/{journalId}', 'JournalEntryController@show')->name('journal.show');
+    Route::patch('/{journalId}', 'JournalEntryController@updateWebhook')->name('journal.update');
+});

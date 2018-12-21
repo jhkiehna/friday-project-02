@@ -1,6 +1,7 @@
 <?php
 
 use Faker\Generator as Faker;
+use App\User;
 
 /*
 |--------------------------------------------------------------------------
@@ -13,9 +14,10 @@ use Faker\Generator as Faker;
 |
 */
 
-$factory->define(App\User::class, function (Faker $faker) {
+$factory->define(App\JournalEntry::class, function (Faker $faker) {
     return [
-        'username' => $faker->name,
-        'email' => $faker->unique()->safeEmail
+        'user_id' => $faker->randomDigit,
+        'email_history_id' => $faker->unique()->randomDigit,
+        'content' => $faker->paragraph($nbSentences = 3, $variableNbSentences = true)
     ];
 });

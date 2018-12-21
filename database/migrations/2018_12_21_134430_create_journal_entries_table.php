@@ -17,7 +17,7 @@ class CreateJournalEntriesTable extends Migration
             $table->increments('id');
             $table->integer('user_id');
             $table->integer('email_history_id');
-            $table->text('journal_content');
+            $table->text('content')->nullable();
             $table->timestamps();
         });
     }
