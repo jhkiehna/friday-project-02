@@ -25,7 +25,7 @@ class JournalEntryController extends Controller
 
     public function show()
     {
-
+        return response('test', 200);
     }
 
     public function updateWebhook()
