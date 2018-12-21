@@ -36,14 +36,26 @@ class JournalControllerTest extends TestCase
 
     public function testShowEndpointReturnsASingleJournalEntryForAUser()
     {
-        $user = factory(User::class)->create();
-        $journalEntry = factory(JournalEntry::class)->create([
-            'user_id' => $user->id
-        ]);
+        $journalEntry = factory(JournalEntry::class)->create();
 
-        $response = $this->get('/journal-entries/'. $journalEntry->user_id .'/' . $journalEntry->id);
+        $response = $this->get('/journal-entries/'. $journalEntry->id);
 
         $response->assertStatus(200);
         $response->assertJsonFragment($journalEntry->toArray());
+    }
+
+    public function testUpdateWebhookEnpointCanUpdateAJournalEntry()
+    {
+        $journalEntry = factory(JournalEntry::class)->create([
+            'content' => null
+        ]);
+
+        $webhookRequest = [
+            'content' => 'Test Content'
+        ];
+
+        $response = $this->patch('/journal-entries/'. $journalEntry->id, $webhookRequest);
+
+        $this->assertEquals($journalEntry->content, $webhookRequest['content']);
     }
 }
